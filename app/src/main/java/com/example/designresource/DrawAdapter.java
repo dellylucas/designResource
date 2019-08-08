@@ -41,8 +41,8 @@ public class DrawAdapter extends BaseAdapter {
             LayoutInflater inf = LayoutInflater.from(context);
             view = inf.inflate(R.layout.list_adapter, parent, false);
         }
-        TextView tittle = parent.findViewById(R.id.textView);
-        TextView description = parent.findViewById(R.id.textView2);
+        TextView tittle = view.findViewById(R.id.textView);
+        TextView description = view.findViewById(R.id.textView2);
 
         tittle.setText(getItem(position).getTittle());
         description.setText(getItem(position).getDescription());

@@ -40,24 +40,23 @@ public class ListDrawFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        List<ModeDraw> list = new ArrayList<>();
-        String[] classTittles = getResources().getStringArray(R.array.tittles);
-        String[] classDescriptions = getResources().getStringArray(R.array.descriptions);
-        for (int i = 0; i <= classTittles.length; i++) {
-            list.add(new ModeDraw(classTittles[i], classDescriptions[i]));
-        }
-        DrawAdapter viewList = new DrawAdapter(list, getContext());
-        ListView listOptions = null;
-        if (container != null) {
-            listOptions = container.findViewById(R.id.listOptions);
-            listOptions.setAdapter(viewList);
-        }
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_list_draw, container, false);
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        List<ModeDraw> list = new ArrayList<>();
+        String[] classTittles = getResources().getStringArray(R.array.tittles);
+        String[] classDescriptions = getResources().getStringArray(R.array.descriptions);
+        for (int i = 0; i < classTittles.length; i++) {
+            list.add(new ModeDraw(classTittles[i], classDescriptions[i]));
+        }
+        DrawAdapter viewList = new DrawAdapter(list, getContext());
+        ListView listOptions = view.findViewById(R.id.listOptions);
+        listOptions.setAdapter(viewList);
+
     }
 }
