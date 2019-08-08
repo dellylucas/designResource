@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity implements ListDrawFragment.
 
     @Override
     public void classSelected(int select) {
-        // getSupportFragmentManager().beginTransaction().replace(R.id.container, DrawFragment.getInstance(select)).addToBackStack(null).commit();
+         getSupportFragmentManager().beginTransaction().replace(R.id.container, DrawFragment.getInstance(select)).addToBackStack(null).commit();
     }
 
 }

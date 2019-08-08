@@ -1,7 +1,13 @@
 package com.example.designresource;
 
 
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 
 /**
@@ -9,7 +15,7 @@ import android.support.v4.app.Fragment;
  */
 public class DrawFragment extends Fragment {
 
-  /*  private static final String KEY_POSITION = "POSITION";
+    private static final String KEY_POSITION = "POSITION";
     private int positionCurrent = -1;
 
     public static DrawFragment getInstance(int position) {
@@ -20,12 +26,17 @@ public class DrawFragment extends Fragment {
         return fragment;
     }
 
+    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null)
             positionCurrent = savedInstanceState.getInt(KEY_POSITION);
-        return inflater.inflate(R.layout.fragment_instrument, container, false);
+        return inflater.inflate(R.layout.fragment_draw, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -45,6 +56,8 @@ public class DrawFragment extends Fragment {
     }
 
     public void updateView(int position) {
+        int est;
+        est = 3;
       /*  String[] information = getResources().getStringArray(R.array.information_instruments);
         String[] informationTitle = getResources().getStringArray(R.array.class_instruments);
 
@@ -72,6 +85,6 @@ public class DrawFragment extends Fragment {
         }
         ((ImageView) getActivity().findViewById(R.id.imageViewOne)).setImageDrawable(imageOne);
         ((ImageView) getActivity().findViewById(R.id.imageViewTwo)).setImageDrawable(imageTwo);
-        getActivity().setTitle(getActivity().getString(R.string.set_title) + " " + informationTitle[position]);
-}*/
-        }
+        getActivity().setTitle(getActivity().getString(R.string.set_title) + " " + informationTitle[position]);*/
+    }
+}

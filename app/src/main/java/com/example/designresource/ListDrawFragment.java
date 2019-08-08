@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -57,6 +58,14 @@ public class ListDrawFragment extends Fragment {
         DrawAdapter viewList = new DrawAdapter(list, getContext());
         ListView listOptions = view.findViewById(R.id.listOptions);
         listOptions.setAdapter(viewList);
+        listOptions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                implement.classSelected(i);
+            }
+        });
 
     }
+
+
 }
