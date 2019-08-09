@@ -9,19 +9,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ListDrawFragment extends Fragment {
     private ISelected implement;
-    private int lastCheck = -1;
 
     public interface ISelected {
         void classSelected(int select);
@@ -58,12 +52,7 @@ public class ListDrawFragment extends Fragment {
         DrawAdapter viewList = new DrawAdapter(list, getContext());
         ListView listOptions = view.findViewById(R.id.listOptions);
         listOptions.setAdapter(viewList);
-        listOptions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                implement.classSelected(i);
-            }
-        });
+        listOptions.setOnItemClickListener((adapterView, view1, i, l) -> implement.classSelected(i));
 
     }
 

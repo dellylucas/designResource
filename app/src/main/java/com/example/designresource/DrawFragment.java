@@ -1,18 +1,25 @@
 package com.example.designresource;
 
 
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class DrawFragment extends Fragment {
 
     private static final String KEY_POSITION = "POSITION";
@@ -31,7 +38,15 @@ public class DrawFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null)
             positionCurrent = savedInstanceState.getInt(KEY_POSITION);
-        return inflater.inflate(R.layout.fragment_draw, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_draw, container, false);
+        RelativeLayout relativeLayout = rootView.findViewById(R.id.rect);
+        Bundle argument = getArguments();
+        if (argument != null)
+            relativeLayout.addView(new Draw(getActivity(), argument.getInt(KEY_POSITION)));
+        else if (positionCurrent != -1)
+            relativeLayout.addView(new Draw(getActivity(), positionCurrent));
+
+        return rootView;
     }
 
     @Override
@@ -40,51 +55,78 @@ public class DrawFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        Bundle argument = getArguments();
-        if (argument != null)
-            updateView(argument.getInt(KEY_POSITION));
-        else if (positionCurrent != -1)
-            updateView(positionCurrent);
-    }
-
-    @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_POSITION, positionCurrent);
     }
 
-    public void updateView(int position) {
-        int est;
-        est = 3;
-      /*  String[] information = getResources().getStringArray(R.array.information_instruments);
-        String[] informationTitle = getResources().getStringArray(R.array.class_instruments);
+    class Draw extends View {
+        private List<PositionObject> listObjects = new ArrayList<>();
+        private PositionObject drawFree;
+        private Paint paint = new Paint();
+        private int forms;
+        private Path path = new Path();
+        private int id = 0;
 
-        TextView informationText = Objects.requireNonNull(getActivity()).findViewById(R.id.textInformative);
-        informationText.setText(information[position]);
-        Drawable imageOne = null;
-        Drawable imageTwo = null;
-        switch (position) {
-            case 0:
-                imageOne = ContextCompat.getDrawable(Objects.requireNonNull(getContext()), R.drawable.guitarra);
-                imageTwo = ContextCompat.getDrawable(getContext(), R.drawable.violin);
-                break;
-            case 1:
-                imageOne = ContextCompat.getDrawable(Objects.requireNonNull(getContext()), R.drawable.conga);
-                imageTwo = ContextCompat.getDrawable(getContext(), R.drawable.tamboras);
-                break;
-            case 2:
-                imageOne = ContextCompat.getDrawable(Objects.requireNonNull(getContext()), R.drawable.clarinete);
-                imageTwo = ContextCompat.getDrawable(getContext(), R.drawable.saxofon);
-                break;
-            case 3:
-                imageOne = ContextCompat.getDrawable(Objects.requireNonNull(getContext()), R.drawable.teclado);
-                imageTwo = ContextCompat.getDrawable(getContext(), R.drawable.bajo_electrico);
-                break;
+        public Draw(Context context, int forms) {
+            super(context);
+            this.forms = forms;
         }
-        ((ImageView) getActivity().findViewById(R.id.imageViewOne)).setImageDrawable(imageOne);
-        ((ImageView) getActivity().findViewById(R.id.imageViewTwo)).setImageDrawable(imageTwo);
-        getActivity().setTitle(getActivity().getString(R.string.set_title) + " " + informationTitle[position]);*/
+
+        @Override
+        public void onDraw(Canvas canvas) {
+            super.onDraw(canvas);
+            paint.setColor(Objects.requireNonNull(getActivity()).getColor(R.color.colorAccent));
+            paint.setStyle(Paint.Style.FILL);
+            paint.setAntiAlias(true);
+            listObjects.forEach(
+                    it -> {
+                        switch (forms) {
+                            case 0:
+                                canvas.drawCircle(it.getX(), it.getY(), 50, paint);
+                                break;
+                            case 1:
+                                canvas.drawOval(it.getX(), it.getY(), it.getX() + 150, it.getY() + 75, paint);
+                                break;
+                            case 2:
+                                canvas.drawRect(it.getX(), it.getY(), it.getX() + 150, it.getY() + 150, paint);
+                                break;
+                            case 3:
+                                canvas.drawRect(it.getX(), it.getY(), it.getX() + 200, it.getY() + 100, paint);
+                                break;
+                        }
+                    }
+            );
+            //fro drawing free only = 4
+            if (forms == 4) {
+                paint.setStyle(Paint.Style.STROKE);
+                paint.setStrokeWidth(20);
+                paint.setColor(Color.BLACK);
+                if (id == 1)
+                    path.moveTo(drawFree.getX(), drawFree.getY());
+                else if (id == 2)
+                    path.lineTo(drawFree.getX(), drawFree.getY());
+                id = 0;
+                canvas.drawPath(path, paint);
+            }
+
+        }
+
+        @Override
+        public boolean onTouchEvent(MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN && forms != 4) {
+                listObjects.add(new PositionObject(event.getX(), event.getY()));
+            } else if (event.getAction() == MotionEvent.ACTION_DOWN && forms == 4) {
+                drawFree = new PositionObject(event.getX(), event.getY());
+                id = 1;
+            } else if (event.getAction() == MotionEvent.ACTION_MOVE && forms == 4) {
+                drawFree = new PositionObject(event.getX(), event.getY());
+                id = 2;
+            }
+            invalidate();
+            return true;
+        }
     }
+
+
 }

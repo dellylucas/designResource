@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">designResource</string>
+    <string name="name_app">Geometric Shapes</string>
+
+    <string-array name="tittles">
+        <item>Circle</item>
+        <item>Oval</item>
+        <item>Square</item>
+        <item>Rect</item>
+        <item>Free drawing</item>
+    </string-array>
+
+    <string-array name="descriptions">
+        <item>It is the shape of a ball or the sun</item>
+        <item>It is an elongated cirle as an egg</item>
+        <item>It is the figure of four equal sides</item>
+        <item>It has two long sides and two short</item>
+        <item>Draw some figures freely</item>
+
+    </string-array>
+</resources>

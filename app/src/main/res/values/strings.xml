@@ -1,16 +1,21 @@
 <resources>
     <string name="app_name">designResource</string>
-    <string-array name="tittles">
-        <item>ovalo</item>
-        <item>circulo</item>
-        <item>cuadrado</item>
+    <string name="name_app">Figuras Geométricas</string>
 
+    <string-array name="tittles">
+        <item>Circulo</item>
+        <item>Óvalo</item>
+        <item>cuadrado</item>
+        <item>Rectangulo</item>
+        <item>Dibujo Libre</item>
     </string-array>
 
     <string-array name="descriptions">
-        <item>este oval</item>
-        <item>este circul</item>
-        <item>ett cuadra</item>
+        <item>Es la forma de una pelota o el sol</item>
+        <item>Es un circulo alargado como un huevo</item>
+        <item>Es la figura de cuatro lados iguales</item>
+        <item>Tiene dos lados largos y dos cortos</item>
+        <item>Dibuja algunas figuras libremente</item>
 
     </string-array>
 </resources>

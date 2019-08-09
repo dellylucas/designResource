@@ -8,6 +8,7 @@ public class MainActivity extends AppCompatActivity implements ListDrawFragment.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(this.getString(R.string.name_app));
         setContentView(R.layout.activity_main);
 
         ListDrawFragment content = new ListDrawFragment();
@@ -15,8 +16,17 @@ public class MainActivity extends AppCompatActivity implements ListDrawFragment.
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        setTitle(this.getString(R.string.name_app));
+    }
+
+    @Override
     public void classSelected(int select) {
-         getSupportFragmentManager().beginTransaction().replace(R.id.container, DrawFragment.getInstance(select)).addToBackStack(null).commit();
+
+        String[] classTittles = getResources().getStringArray(R.array.tittles);
+        setTitle(classTittles[select]);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, DrawFragment.getInstance(select)).addToBackStack(null).commit();
     }
 
 }
