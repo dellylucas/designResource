@@ -18,4 +18,13 @@
         <item>Dibuja algunas figuras libremente</item>
 
     </string-array>
+
+    <string-array name="event_draw">
+        <item>Toca la pantalla para dibujar algunos circulos</item>
+        <item>Toca la pantalla para dibujar algunos ovalos</item>
+        <item>Toca la pantalla para dibujar algunos cuadrados</item>
+        <item>Toca la pantalla para dibujar algunos rectangulos</item>
+        <item>Pasa tu dedo por la pantalla para dibujar algunas figuras</item>
+
+    </string-array>
 </resources>

@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,6 @@ public class DrawFragment extends Fragment {
             relativeLayout.addView(new Draw(getActivity(), argument.getInt(KEY_POSITION)));
         else if (positionCurrent != -1)
             relativeLayout.addView(new Draw(getActivity(), positionCurrent));
-
         return rootView;
     }
 
@@ -71,6 +71,8 @@ public class DrawFragment extends Fragment {
         public Draw(Context context, int forms) {
             super(context);
             this.forms = forms;
+            String[] classEvent = getResources().getStringArray(R.array.event_draw);
+            Toast.makeText(context, classEvent[forms], Toast.LENGTH_LONG).show();
         }
 
         @Override
